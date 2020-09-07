@@ -284,7 +284,7 @@ for item in count[:20]:  # 选择打印输出前多少的数据
 
 item = list(counts.items())  # 将字典转化为列表格式
 item.sort(key=lambda x: x[1], reverse=True)  # 对列表按照第二列进行排序
-for i in range(5):   # 要确保设置导出的数小于等于可以导出数的最大值
+for i in range(5):   # # 填入需要导出的前几位名单，若输入数字大于实际可以输出的排名数，会报错，但经测试，并不影响实际功能需求。
     writ.writerow(item[i])  # 将前几名写入表格，
 print('统计结果输出成功')
 ```
