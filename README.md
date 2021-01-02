@@ -196,9 +196,9 @@ print("本月数据爬取完成！")
 
 ### ②开始日期和结束日期格式为：20200101    20200102（这样保存的是2020年1月1日的内容）
 
-###③由于反爬原因，本程序并不能保证每次都会顺利全部爬取下来，这个概率很小
+### ③由于反爬原因，本程序并不能保证每次都会顺利全部爬取下来，这个概率很小
 
-##3、其他方案
+## 3、其他方案
 
 考虑到很多朋友对程序更小白，不习惯使用代码来操作。提供两种备选方案。
 
@@ -221,7 +221,7 @@ print("本月数据爬取完成！")
 
 我在这里准备了两个关键词名单来作说明：“中国省份名单.txt”,“外国政要名单.txt”，关键词名单内容格式为每行一个。如图所示：
 
-![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/2.png)
+![](https://raw.githubusercontent.com/caspiankexin/people-daily-crawler-date/master/image/2.png)
 
 🔔**提醒**：建议将需要统计的关键词名单存放在同一个文件夹下，方便下一步的操作。
 
@@ -233,13 +233,13 @@ print("本月数据爬取完成！")
 
  创建一个文件夹并按下图创建存放相关文件：
 
-![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/3.png)
+![](https://raw.githubusercontent.com/caspiankexin/people-daily-crawler-date/master/image/3.png)
 
 ### ②确定需要统计的日期和关键词名单
 
 如：需要统计2019年和2020年的数据；以及中国政要名单和外国政要名单；下图所示
 
-![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/4.png)
+![](https://raw.githubusercontent.com/caspiankexin/people-daily-crawler-date/master/image/4.png)
 
 ### ③运行代码：
 
@@ -344,7 +344,7 @@ print("所有文件都已经统计并输出完成。")
 
 最终输出的结果如下
 
-![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/5.png)
+![](https://raw.githubusercontent.com/caspiankexin/people-daily-crawler-date/master/image/5.png)
 
 
 # 三：数据分析
