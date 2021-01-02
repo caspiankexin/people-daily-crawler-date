@@ -1,21 +1,20 @@
-# “语象观察”-爬取人民日报并统计词频
+# 通过python来实现"语象观察"
 
-> “语象观察”是之前看过的钱钢老师做的一项社会学研究，由于之前用于发布的“尽知天下事”公众号被封，导致目前无法再看到老师的相关研究成果（或许这个项目已经停止了），便有了自己尝试来研究。
-> 钱钢老师的文章示例：[https://sourl.cn/idh34d](https://sourl.cn/idh34d)
+> “语象观察”是钱刚老师之前在做的一个研究项目，之前曾经在公众号“尽知天下事”（现已被封）上发布。我对这种通过数据来发掘有价值的内容的数据新闻很感兴趣，算是弥补自己文笔不行还想从事新闻传媒的曲线救国道路吧。
 
-## 一、确定整体思路
+不过作为一个对电脑方面感兴趣但很小白的我来说，所有的步骤想起来都很简单，但实操起来无从下手，不过决心还是很坚定的，决定要做到现在基本完成将近10个月。
 
-![](https://i.loli.net/2020/08/30/XvFLU136qGszcjp.png)
+![](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/57BD8C52-E76A-45B2-BB9D-D8385B786E90.jpeg)
 
-## 二、实际操作部分
+一步步找问题，找解决办法，和一次次试验。念念不忘，必有回响。目前我已经实现了所有我最初的设想功能。
 
-作为技术初学者（和小白差不多），所有的操作都是以目的为导向，并不追求操作的完美型，只求在最少涉及技术的情况下实现要求。
+---
 
-本次所用程序主要由python实现。（python3.8，windows 10 环境下进行的测试）
+# 一：获取人民日报的数据
 
-### 1、爬取人民日报的数据
+分析数据，第一步是要获取人民日报的数据。利用爬虫每月爬取人民日报当月内容为txt文件，爬虫这部分代码来源于CSDN用户@机灵鹤，帮助我解决了最难的变成问题，非常感谢。
 
-此处特别感谢CSDN用户@机灵鹤的[博客文章](https://blog.csdn.net/wenxuhonghe/article/details/90047081)，我在他的代码上进行了一丢丢的更改，直接上代码
+## 1、代码如下：
 
 ```python
 import requests
@@ -173,158 +172,191 @@ if __name__ == '__main__':
     主函数：程序入口
     '''
     # 输入起止日期，爬取之间的新闻
-    beginDate = input('请输入开始日期:') # 日期格式20200101
+    beginDate = input('请输入开始日期:')
     endDate = input('请输入结束日期:')
+    destdir = input("请输入数据保存的地址：")
     data = get_date_list(beginDate, endDate)
 
     for d in data:
         year = str(d.year)
         month = str(d.month) if d.month >=10 else '0' + str(d.month)
         day = str(d.day) if d.day >=10 else '0' + str(d.day)
-        destdir = "E:/date"  #此处选择爬取下来文件的存储路径
+        destdir = destdir  # 爬下来的文件的存储地方
 
         download_rmrb(year, month, day, destdir)
         print("爬取完成：" + year + month + day)
-#         time.sleep(3)        # 怕被封 IP 爬一爬缓一缓，爬的少的话可以注释掉
-# 不建议一次爬取太多天的数据，如果报错，可能是被封ip，稍等一会再进行即可
+        time.sleep(3)        # 怕被封 IP 爬一爬缓一缓，爬的少的话可以注释掉
+
+print("本月数据爬取完成！")
 ```
 
-### 2、整理爬取的数据
+## 2、⚠️注意：
 
-第一步爬虫爬下来的是将每天所有文章保存在一个文件夹下，需要将所有文章合并为一个txt文件。
+### ①本爬虫只能爬取人民日报网页版上可查看的日期的内容，具体范围，参考原网站：[http://paper.people.com.cn/rmrb](http://paper.people.com.cn/rmrb/html/2021-01/01/nbs.D110000renmrb_01.htm)
 
-此处代码感谢CSDN用户@yunzifengqing的[博客文章](https://blog.csdn.net/yunzifengqing/article/details/82465794?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522159852148519724839240101%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=159852148519724839240101&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v3~pc_rank_v4-1-82465794.first_rank_ecpm_v3_pc_rank_v4&utm_term=python+%E5%90%88%E5%B9%B6+%E5%AD%90%E6%96%87%E4%BB%B6%E5%A4%B9+txt&spm=1018.2118.3001.4187)
+### ②开始日期和结束日期格式为：20200101    20200102（这样保存的是2020年1月1日的内容）
+
+###③由于反爬原因，本程序并不能保证每次都会顺利全部爬取下来，这个概率很小
+
+##3、其他方案
+
+考虑到很多朋友对程序更小白，不习惯使用代码来操作。提供两种备选方案。
+
+①、我已经将上述代码封装成了exe文件，在Windows电脑上可以直接运行这个爬虫，自主选择需要爬取的范围。
+
+下载地址：[https://nebula.lanzous.com/ieH5ijxmwub](https://nebula.lanzous.com/ieH5ijxmwub)
+
+②我已经把我爬取下来的人民日报txt文件打包分享了，每月更新一次，有需要的，可以直接下载使用。
+
+下载地址：Github：[https://github.com/caspiankexin/people-daily-crawler-date](https://github.com/caspiankexin/people-daily-crawler-date)
+
+# 二：对人民日报的内容进行数据提取
+
+“语象观察”需要的数据非常简单，就是统计一个关键词在文章中出现了几次。难度再于“语象观察”分析的文章字数经常会在十万和百万级，关键词上百个，还得是对多个文件进行操作，传统方法无法应付。
+
+
+## 1、准备关键词名单
+
+关键词名单的准备一定程度上属于非技术难题，这里需要的是看你要统计文章中哪个词语出现的次数，可以是国家各级领导人的名单，也可以是要研究对比的政治性术语，名单的制作看个人需要制作。当然一些关键词名单还是需要爬虫来实现更加方便，但这不属于本项目的教学范围，不进行讨论。
+
+我在这里准备了两个关键词名单来作说明：“中国省份名单.txt”,“外国政要名单.txt”，关键词名单内容格式为每行一个。如图所示：
+
+![%E9%80%9A%E8%BF%87python%E6%9D%A5%E5%AE%9E%E7%8E%B0%20%E8%AF%AD%E8%B1%A1%E8%A7%82%E5%AF%9F%20d2883b8ae080443eaf3a207092e5adda/Untitled%201.png](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/Untitled%201.png)
+
+🔔**提醒**：建议将需要统计的关键词名单存放在同一个文件夹下，方便下一步的操作。
+
+## 2、合并并统计关键词出现的次数并输出为csv
+
+数据提取操作的前期准备工作，为了使操作便利，将程序设计为只需输入一个项目地址便能自动运行。但这就需要一些准备工作。
+
+### ①整理项目文件夹
+
+ 创建一个文件夹并按下图创建存放相关文件：
+
+![](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/%E7%AE%A1%E7%90%86%E9%83%A8%E9%97%A8.png)
+
+### ②确定需要统计的日期和关键词名单
+
+如：需要统计2019年和2020年的数据；以及中国政要名单和外国政要名单；下图所示
+
+![](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/image-20210102144453988.png)
+
+### ③运行代码：
 
 ```python
-# 本知识来源于：https://sourl.cn/LR2N5W
-# 本程序支持合并文件夹及其子文件中txt的合并
-
 import os
-
-# 运行Python过程中输入文件夹路径及合并后的文件路径及名称
-# rootdir = raw_input("the old path: ")
-# newfile = raw_input("the new path and filename: ")
-rootdir = r'E:\date'   # 输入需要合并文件的文件夹路径
-newfile = r'E:\date\合并后文档.txt'  # 输入合并后文件的存储路径
-paths = []   # 存放文件夹（含子文件夹）下所有文件的路径及名称
-
-# 获取文件夹（含子文件夹）下所有文件的路径及名称
-for root, dirs, files in os.walk(rootdir):
-    for file in files:
-        paths.append(os.path.join(root, file).encode('utf-8')) # 支持中文名称
-
-# 创建新的文件
-f = open(newfile,'w',encoding='utf-8')
-# 将之前获取到的文件夹（含子文件夹）下所有文件的路径及名称里的内容写进新建的文件里
-for i in paths:
-    for line in open(i,encoding='utf-8'):
-        f.writelines(line)
-f.close()   # 保存并关闭新建的文件
-```
-
-### 3、统计关键词的出现次数
-
-搜索关键词虽是日常生活中最常用到的操作，但是花费是精力是最大的。由于合并后文本的字数非常大，且需要搜索的关键词很多，如果是通过软件搜索那工作量太大了，此外网上有很多的python搜索关键词的代码，但是大多是需要我在程序中输入需要搜索的关键词，不适合关键词很多的情况。
-
-此外，作为python小白，之前走错路查了非常多的自然语言处理，但是最后还是查找资料找到了想要的程序。
-
----
-
-实现此项目的首先需要创建关键词文件，这个根据具体需要进行更换，关键词的整理或许还需要爬虫的支持，我暂时还未涉及，如果不多可以手动输入。还有为了考虑项目的实际需要，选择在程序中指定关键词和文本路径，以便减少后续操作的更改量。
-
-此代码统计次数部分感谢B站用户@Deustchlands的[视频](https://www.bilibili.com/video/BV1ue411s7Gv)，关键次文件和需统计文本的路径知识感谢CSDN用户@Scarlett2045的[博客文章](https://blog.csdn.net/weixin_43507682/article/details/103078816)，将统计结果输出为csv文件知识感谢CSDN用户@Aaran123的[博客文章](https://blog.csdn.net/weixin_44298385/article/details/104392226)，还很感谢无数网友的乐于分享帮助解决了很多问题。
-
-> **注意：**
-> 1、`with   open（）`里的路径是‘`\`’,`Excel = open（）`里的路径是‘`/`’
-> 2、关键词名单为txt文件，每个关键词为一行。
-> 3、本程序其实具有两个部分，打印出统计结果，和输出有统计结果的csv文件
-> 4、倒数第三行和第七行中的数字分别代表打印和输出排名的前多少位，输出的排名必需小于或等于可以输出的排名，例如10个关键词只有7个出现过可以被搜到，那输出的排名智只能小于等于7。
-
-```python
-# 本知识来源：https://www.bilibili.com/video/BV1ue411s7Gv 
-#  https://github.com/Ericwang6/three_body
-# https://sourl.cn/jKeQYH      https://sourl.cn/cDP8HR
-
 import jieba
 import csv
 
-# 打开准备好的关键词名单
-with open(file=r"E:\OneDrive\projects\语象观察—人民日报\相关代码\词频统计\中国政要名单.txt",encoding='UTF-8') as f:
-    nameList = f.read().split('\n')
 
-# 打开要进行词频统计的文本
-with open(file=r"E:\date\合并后文档.txt",encoding='UTF-8') as f:
-    txt = f.read()
+fuji = input("请输入项目地址：") #例如我的项目地址：E:\onedrive\project\语象观察人民日报
 
-# 向jieba库中加入人名，防止jieba在分词时将人名当作两个词拆分掉
-for name in nameList:
-    jieba.add_word(name)
+#xuhebingliebiao = input("请输入需合并的所有文件夹名称的列表txt文件：")
+#xuhebingfuji = input("请输入需合并的文件夹所在的父级地址：")
+#cunchuhebinghoufuji = input("请输入合并后文件的存储地址：")
 
-# 打开表格文件，若表格文件不存在则创建
-# 输出的文件路径也是可以设置的，和之前的修改估计一样
-# 直接输入要存入的路径即可，不过路径中不是“\”而是“/”
-Excel = open("E:/date/本月中国政要出现次数.csv", 'w', newline='')
-writ = csv.writer(Excel)  # 创建一个csv的writer对象用于写每一行内容
-writ.writerow(['名称', '出现次数'])  # 写表格表头
+xuhebing = fuji+"\\实际操作\\需合并文件的列表.txt"
 
-# 分词
-txt = jieba.lcut(txt)
+with open(xuhebing, 'r', encoding='UTF-8') as f:
+    lines1 = [line1.strip() for line1 in f.readlines()]
 
-# 创建一个字典，用于对词出现次数的统计，键表示词，值表示对应的次数
-counts = {}
-for item in txt:
-    for name in nameList:
-        if item == name:
-            counts[name] = counts.get(name, 0) + 1  # 在字典中查询若该字返回次数加一
+for line1 in lines1:
+    newstr = fuji+"\\原始数据\\"+line1 #需要合并的每一个文件夹
+    newfile = fuji+"\\实际操作\\合并后的文件\\"+line1+"合并后文档.txt" # 输入合并后文件的存储路径
+    paths = []  # 存放文件夹（含子文件夹）下所有文件的路径及名称
+    for root, dirs, files in os.walk(newstr):
+        for file in files:
+            paths.append(os.path.join(root, file).encode('utf-8'))  # 支持中文名称
 
-# 排序并输出结果
-count = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)
-for item in count[:20]:  # 选择打印输出前多少的数据
-    print(item)  # 会显示在控制面板上，但不会保存到本地
+    # 创建新的文件
+    f = open(newfile, 'w', encoding='utf-8')
+    # 将之前获取到的文件夹（含子文件夹）下所有文件的路径及名称里的内容写进新建的文件里
+    for i in paths:
+        for line in open(i, encoding='utf-8'):
+            f.writelines(line)
+    f.close()  # 保存并关闭新建的文件
 
-item = list(counts.items())  # 将字典转化为列表格式
-item.sort(key=lambda x: x[1], reverse=True)  # 对列表按照第二列进行排序
-for i in range(5):   # # 填入需要导出的前几位名单，若输入数字大于实际可以输出的排名数，会报错，但经测试，并不影响实际功能需求。
-    writ.writerow(item[i])  # 将前几名写入表格，
-print('统计结果输出成功')
+print("所有文件夹都已合并完成。")
+
+#打开需要统计的已经合并后的txt文件的汇总好的文件地址的txt列表
+with open(xuhebing, 'r', encoding='UTF-8') as f:   #这里的open的使用方式看对不对，对比下面na g
+    lines = [line.strip() for line in f.readlines()]
+
+guanjianci = fuji+"\\实际操作\\关键词名单列表.txt"
+with open(guanjianci, 'r', encoding='UTF-8') as f:
+    lines2 = [line2.strip() for line2 in f.readlines()]
+
+guanjiancifuji = fuji+"\\关键词名单" #关键词文件父级地址
+xutongjiwenjianfuji = fuji+"\\实际操作\\合并后的文件" #需要统计的文件所在的文件夹地址
+cunchuwenjianfuji = fuji+"\\实际操作\\统计后输出" #统计后输出的文件所在的文件夹地址
+
+for line in lines:
+   line = line+"合并后文档" #注意这里的，看是否会有问题
+   for line2 in lines2:
+            with open(file=guanjiancifuji+"\\"+line2+".txt", encoding='UTF-8') as f:
+                nameList = f.read().split('\n')
+
+            newaddress = xutongjiwenjianfuji +"\\"+ line + ".txt"
+            newfileaddress = cunchuwenjianfuji+"\\"+line+line2+".csv"  # 输入合并后文件的存储路径
+            paths = []  # 存放文件夹（含子文件夹）下所有文件的路径及名称
+            oldfile = newaddress  # 输入需要统计的文档的路径
+            newfile = newfileaddress  # 统计后数据的保存路径
+            with open(file=oldfile, encoding='UTF-8') as f:
+                txt = f.read()
+
+            # 向jieba库中加入人名，防止jieba在分词时将人名当作两个词拆分掉
+            for name in nameList:
+                jieba.add_word(name)
+
+            # 打开表格文件，若表格文件不存在则创建
+            # 输出的文件路径也是可以设置的，和之前的修改估计一样
+            # 直接输入要存入的路径即可，不过路径中不是“\”而是“/”
+            Excel = open(newfile, 'w', newline='')
+            writ = csv.writer(Excel)  # 创建一个csv的writer对象用于写每一行内容
+            writ.writerow(['名称', '出现次数'])  # 写表格表头
+
+            # 分词
+            txt = jieba.lcut(txt)
+
+            # 创建一个字典，用于对词出现次数的统计，键表示词，值表示对应的次数
+            counts = {}
+            for item in txt:
+                for name in nameList:
+                    if item == name:
+                        counts[name] = counts.get(name, 0) + 1  # 在字典中查询若该字返回次数加一
+            # 排序并输出结果
+            count = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)
+            for item in count[:15]:  # 选择打印输出前多少的数据
+                print(item)  # 会显示在控制面板上，但不会保存到本地
+
+            item = list(counts.items())  # 将字典转化为列表格式
+            item.sort(key=lambda x: x[1], reverse=True)  # 对列表按照第二列进行排序
+            for i in item:  # 要确保设置导出的数小于等于可以导出数的最大值！！！！！！这个得解决！！！
+             writ.writerow(i)  # 将前几名写入表格，
+            print(line+line2+'统计结果输出成功')
+
+
+
+print("所有文件都已经统计并输出完成。")
 ```
 
-### 4、后续操作
+### ④查看结果：
 
-如果想要全自动，可以直接将这几段代码按顺序合并在一起，便能自动执行相应的功能。
+最终输出的结果如下
 
-在输出统计结果之后，可以按照自己的需求进行相应操作。可视化和社科研究就不在这里考虑了。
-
----
-
-2020年8月30日更新
-
-- 将涉及的代码全部放到“相关代码”文件夹内
-
-- 创建关键词文件夹目录，存在用来统计的关键词，持续更新关键词文件
-
----
-
-2020年8月22日更新
-
-- 上传新的代码文件“代码（第二版）.py”
+![](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/image-20210102145340909.png)
 
 
----
+#三：数据分析
 
-2020-07-31更新
+通过第二步将数据从众多文章中提取出来后，就需要分析数据，“语象观察”作为一个社科项目，分析数据才是核心所在。可以研究每一时间短内某个名词的出现次数，或某个名词在多个时间段出现次数的变化等来进行，推荐大家多看钱钢老师之前的“语象观察”的文章（自行搜索）来了解相关的语料分析。
 
-没有想到人民日报在七月份更改了他们的版面，导致原来的爬虫无法爬取2020年7月1日以后的内容了，不过之前的内容还是可以爬取的。之后我会将新的爬虫上传。
+#四：后记
 
----
+自己做“语象观察”，最初只是出自无奈，无奈于钱钢被封杀，和“语象观察”这个项目所用到资源的不对外开放。没有办法在巨人肩膀上前行，只能自己从头开始造车轮，甚至造的还是很落后的车轮。这方面，确实很希望有能力的人能够多多的将知识和工具予以扩散，让更多的人能够在前辈基础上创造新的价值。
 
-- 爬虫的代码是程序.py，源于网络，我已经使用很久了，可以正常使用，不过速度不是很快，如果要一次性大量爬取不建议使用这个。
+同时，在确定自己做之后，我也享受挑战，我虽然是编程小白，但是我有信心自己的网络能力能解决这些问题，也是检验自己电脑玩的到底行不行的机会。从刚开始的完全没有头脑到慢慢的分拆问题，解决问题；从最初的查资料都查偏了，到最后直接靠自己感觉去修改代码，这些都是在完善这个项目时不断进步的。在这个项目中，我也了解了更多的python知识，实践中学习学的比较牢靠。
 
-- 此外，从2019年开始，我会每月爬取一次人民日报的文章，也会把爬下来的内容放到仓库里，压缩包里是txt文件，按月分类。如有需要可以直接下载使用。
+此外，我在学习过程中也意识到，我为“语象观察”弄的程序也适合于其他的统计某个“词语”出现次数的需求上，最典型的就是统计一下考研大纲词汇在考研真题中的出现次数，其他肯定还会有很多的。
 
-爬取人民日报内容是源于之前看的"语像观察"被封了，所以想着自己模仿也进行类似的研究，但是发现作为各方面小白，如果想要做成还是有很大的难度的，所以只能暂时搁置，先定期把人民日报的数据保存下来，以便之后使用。
-
----
-> 如果我发布的内容算侵权的话，请告知，我会删
-
-> 爬虫代码和爬取下来的人民日报数据可以随意使用，但利用这些创作的内容概不负责。
+之后的后续，我也会在有时间的时候继续思考，争取能够做出高质量的“语象观察”类的文章。
