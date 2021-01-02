@@ -4,7 +4,7 @@
 
 不过作为一个对电脑方面感兴趣但很小白的我来说，所有的步骤想起来都很简单，但实操起来无从下手，不过决心还是很坚定的，决定要做到现在基本完成将近10个月。
 
-![image](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/1.jpeg)
+![image](https://raw.githubusercontent.com/caspiankexin/people-daily-crawler-date/master/image/1.jpeg)
 
 一步步找问题，找解决办法，和一次次试验。念念不忘，必有回响。目前我已经实现了所有我最初的设想功能。
 
