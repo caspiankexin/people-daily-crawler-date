@@ -4,7 +4,7 @@
 
 不过作为一个对电脑方面感兴趣但很小白的我来说，所有的步骤想起来都很简单，但实操起来无从下手，不过决心还是很坚定的，决定要做到现在基本完成将近10个月。
 
-![](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/57BD8C52-E76A-45B2-BB9D-D8385B786E90.jpeg)
+![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/1.jpeg)
 
 一步步找问题，找解决办法，和一次次试验。念念不忘，必有回响。目前我已经实现了所有我最初的设想功能。
 
@@ -221,7 +221,7 @@ print("本月数据爬取完成！")
 
 我在这里准备了两个关键词名单来作说明：“中国省份名单.txt”,“外国政要名单.txt”，关键词名单内容格式为每行一个。如图所示：
 
-![%E9%80%9A%E8%BF%87python%E6%9D%A5%E5%AE%9E%E7%8E%B0%20%E8%AF%AD%E8%B1%A1%E8%A7%82%E5%AF%9F%20d2883b8ae080443eaf3a207092e5adda/Untitled%201.png](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/Untitled%201.png)
+![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/2.png)
 
 🔔**提醒**：建议将需要统计的关键词名单存放在同一个文件夹下，方便下一步的操作。
 
@@ -233,13 +233,13 @@ print("本月数据爬取完成！")
 
  创建一个文件夹并按下图创建存放相关文件：
 
-![](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/%E7%AE%A1%E7%90%86%E9%83%A8%E9%97%A8.png)
+![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/3.png)
 
 ### ②确定需要统计的日期和关键词名单
 
 如：需要统计2019年和2020年的数据；以及中国政要名单和外国政要名单；下图所示
 
-![](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/image-20210102144453988.png)
+![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/4.png)
 
 ### ③运行代码：
 
@@ -344,14 +344,14 @@ print("所有文件都已经统计并输出完成。")
 
 最终输出的结果如下
 
-![](https://cdn.jsdelivr.net/gh/caspiankexin/tuchuang/PIC-img/image-20210102145340909.png)
+![](http://github.com/caspiankexin/people-daily-crawler-date/raw/master/image/5.png)
 
 
-#三：数据分析
+# 三：数据分析
 
 通过第二步将数据从众多文章中提取出来后，就需要分析数据，“语象观察”作为一个社科项目，分析数据才是核心所在。可以研究每一时间短内某个名词的出现次数，或某个名词在多个时间段出现次数的变化等来进行，推荐大家多看钱钢老师之前的“语象观察”的文章（自行搜索）来了解相关的语料分析。
 
-#四：后记
+# 四：后记
 
 自己做“语象观察”，最初只是出自无奈，无奈于钱钢被封杀，和“语象观察”这个项目所用到资源的不对外开放。没有办法在巨人肩膀上前行，只能自己从头开始造车轮，甚至造的还是很落后的车轮。这方面，确实很希望有能力的人能够多多的将知识和工具予以扩散，让更多的人能够在前辈基础上创造新的价值。
 
