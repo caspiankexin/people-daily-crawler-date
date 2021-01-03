@@ -158,14 +158,18 @@ if __name__ == '__main__':
     # 输入起止日期，爬取之间的新闻
     beginDate = input('请输入开始日期:')
     endDate = input('请输入结束日期:')
+    destdir = input("请输入数据保存的地址：")
     data = get_date_list(beginDate, endDate)
 
     for d in data:
         year = str(d.year)
         month = str(d.month) if d.month >=10 else '0' + str(d.month)
         day = str(d.day) if d.day >=10 else '0' + str(d.day)
-        destdir = "E:/202001"
+        destdir = destdir  # 爬下来的文件的存储地方
 
         download_rmrb(year, month, day, destdir)
         print("爬取完成：" + year + month + day)
-#         time.Sleep(3)        # 怕被封 IP 爬一爬缓一缓，爬的少的话可以注释掉
+        time.sleep(3)        # 怕被封 IP 爬一爬缓一缓，爬的少的话可以注释掉
+
+print("本月数据爬取完成！")
+
