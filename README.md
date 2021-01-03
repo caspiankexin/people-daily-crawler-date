@@ -233,7 +233,7 @@ print("本月数据爬取完成！")
 
  创建一个文件夹并按下图创建存放相关文件：
 
-![](https://raw.githubusercontent.com/caspiankexin/people-daily-crawler-date/master/image/3.png)
+![](https://raw.githubusercontent.com/caspiankexin/people-daily-crawler-date/master/image/6.png)
 
 ### ②确定需要统计的日期和关键词名单
 
