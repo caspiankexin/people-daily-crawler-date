@@ -5,18 +5,23 @@ import csv
 
 fuji = input("请输入项目地址：") #例如我的项目地址：E:\onedrive\project\语象观察人民日报
 
-#xuhebingliebiao = input("请输入需合并的所有文件夹名称的列表txt文件：")
-#xuhebingfuji = input("请输入需合并的文件夹所在的父级地址：")
-#cunchuhebinghoufuji = input("请输入合并后文件的存储地址：")
-
 xuhebing = fuji+"\\实际操作\\需合并文件的列表.txt"
 
 with open(xuhebing, 'r', encoding='UTF-8') as f:
     lines1 = [line1.strip() for line1 in f.readlines()]
 
 for line1 in lines1:
-    newstr = fuji+"\\原始数据\\"+line1 #需要合并的每一个文件夹
-    newfile = fuji+"\\实际操作\\合并后的文件\\"+line1+"合并后文档.txt" # 输入合并后文件的存储路径
+    a = len(line1)
+    b = line1[0:5]
+    yuefen = fuji + "\\原始数据\\" + b + "\\" + line1
+    nianfen = fuji + "\\原始数据\\" + line1
+    if a > 5:
+        newstr =  yuefen
+    else:
+        newstr = nianfen
+
+    newstr = newstr  # 需要合并的每一个文件夹
+    newfile = fuji + "\\实际操作\\合并后的文件\\" +line1+ "合并后文档.txt"  # 输入合并后文件的存储路径
     paths = []  # 存放文件夹（含子文件夹）下所有文件的路径及名称
     for root, dirs, files in os.walk(newstr):
         for file in files:
