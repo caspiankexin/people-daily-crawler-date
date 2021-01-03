@@ -208,7 +208,7 @@ print("本月数据爬取完成！")
 
 ②我已经把我爬取下来的人民日报txt文件打包分享了，每月更新一次，有需要的，可以直接下载使用。
 
-下载地址：Github：[https://github.com/caspiankexin/people-daily-crawler-date](https://github.com/caspiankexin/people-daily-crawler-date)
+下载地址：Github：[https://github.com/caspiankexin/people-daily-crawler-date/releases](https://github.com/caspiankexin/people-daily-crawler-date/releases)
 
 # 二：对人民日报的内容进行数据提取
 
