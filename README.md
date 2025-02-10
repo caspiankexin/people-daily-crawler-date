@@ -29,5 +29,5 @@
 
 如果觉得对您有帮助，感谢打赏！🙇‍♀️
 
-![微信赞赏码](https://cors.zme.ink/http://cdn.idreams.cc/202502102059630.webp#pic_left =600x600)
+![微信赞赏码](https://cors.zme.ink/http://cdn.idreams.cc/202502102059630.webp =600x600)
 
