@@ -29,5 +29,8 @@
 
 如果觉得对您有帮助，感谢打赏！🙇‍♀️
 
+ <img src="http://cdn.idreams.cc/202502102059630.webp" width="200" />
+
+
 ![微信赞赏码](http://cdn.idreams.cc/202502102059630.webp)
 
