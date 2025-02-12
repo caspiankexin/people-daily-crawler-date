@@ -4,7 +4,9 @@
 作者：github（caspiankexin）
 版本：第3版
 可爬取的时间范围：2024年12月起
+注意：此代码仅供交流学习，不得作为其他用途。
 '''
+
 
 import requests
 import bs4
@@ -118,22 +120,26 @@ def download_rmrb(year, month, day, destdir):
     pageList = getPageList(year, month, day)
     pageNo = 0
     for page in pageList:
-        pageNo = pageNo + 1
-        titleList = getTitleList(year, month, day, page)
-        titleNo = 0
-        for url in titleList:
-            titleNo = titleNo + 1
+        try:
+            pageNo = pageNo + 1
+            titleList = getTitleList(year, month, day, page)
+            titleNo = 0
+            for url in titleList:
+                titleNo = titleNo + 1
 
-            # 获取新闻文章内容
-            html = fetchUrl(url)
-            content = getContent(html)
+                # 获取新闻文章内容
+                html = fetchUrl(url)
+                content = getContent(html)
 
-            # 生成保存的文件路径及文件名
-            path = destdir + '/' + year + month + day + '/'
-            fileName = year + month + day + '-' + str(pageNo).zfill(2) + '-' + str(titleNo).zfill(2) + '.txt'
+                # 生成保存的文件路径及文件名
+                path = destdir + '/' + year + month + day + '/'
+                fileName = year + month + day + '-' + str(pageNo).zfill(2) + '-' + str(titleNo).zfill(2) + '.txt'
 
-            # 保存文件
-            saveFile(content, path, fileName)
+                # 保存文件
+                saveFile(content, path, fileName)
+        except Exception as e:
+            print(f"日期 {year}-{month}-{day} 下的版面 {page} 出现错误：{e}")
+            continue
 
 
 def gen_dates(b_date, days):
@@ -165,6 +171,7 @@ if __name__ == '__main__':
     主函数：程序入口
     '''
     # 输入起止日期，爬取之间的新闻
+    print("欢迎使用人民日报爬虫，请输入以下信息：")
     beginDate = input('请输入开始日期:')
     endDate = input('请输入结束日期:')
     destdir = input("请输入数据保存的地址：")
@@ -178,7 +185,8 @@ if __name__ == '__main__':
 
         download_rmrb(year, month, day, destdir)
         print("爬取完成：" + year + month + day)
-        time.sleep(3)        # 怕被封 IP 爬一爬缓一缓，爬的少的话可以注释掉
+        time.sleep(5)        # 怕被封 IP 爬一爬缓一缓，爬的少的话可以注释掉
 
-print("本月数据爬取完成。")
+    lastend = input("本月数据爬取完成!可以关闭软件了")
+
 
